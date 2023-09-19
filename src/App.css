@@ -2,37 +2,212 @@
   text-align: center;
 }
 
+.App-header {
+  position: fixed;
+  width: 100%;
+  z-index: 20;
+}
+
 .App-logo {
-  height: 40vmin;
+  height: 1.8vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.banner {
+  align-items: center;
+  background: radial-gradient(circle, rgba(33,61,88,1) 19%, rgba(10,26,47,1) 55%);
+  color: #F5F5F5;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.bottom-text {
+  line-height: 1vh;
+}
+
+.btn-nav {
+  align-items: center;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 0 2vh;
+}
+
+.car-img {
+  height: auto;
+  width: 100%;
+}
+
+.credit {
+  font-weight: bold;
+  padding: 0 2vh;
+}
+
+.Details-link {
+  padding: 0 2vh;
+}
+
+.est {
+  font-size: calc(5px + 1vmin);
+}
+
+.header {
+  background-color: transparent;
+  min-height: 7vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+  padding: 0 5vh;
+}
+
+.icon {
+  height: 2vh;
+  padding: 0 1vh;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.main {
+  align-items: center;
+  position: relative;
   display: flex;
   flex-direction: column;
+}
+
+.main-btn {
+  border: none;
+  border-radius: 0.5vh;
+  font-size: inherit;
+  padding: 1.4vh 11vh;
+  margin: 0 1.7vh;
+}
+
+.main-btn:hover {
+  cursor: pointer;
+}
+
+.main-btns {
+  display: inline-flex;
+  margin-bottom: 2vh;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 79%;
+  justify-content: space-between;
+  line-height: 2vh;
+  position: fixed;
+  top: 18vh;
+}
+
+.modal {
   align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-top: -5%;
+  padding-top: 7vh;
+  width: 100%;
+  z-index: 50;
+}
+
+.modal:hover {
+  cursor: pointer;
+}
+
+.modal-inner {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 8vh 0 6vh 0;
+}
+
+.modal-inner-div {
+  padding: 0 6vh;
+}
+
+.modal-inner-img {
+  height: 120px;
+  width: auto;
+  padding: 0 1vh;
+}
+
+.modal-ul {
+  font-weight: bold;
+  line-height: 4vh;
+  text-align: left;
+}
+
+.model {
+  font-size: calc(25px + 2vmin);
+  font-weight: 500;
+}
+
+.nav-btn {
+  background-color: inherit;
+  border: none;
+  font-size: inherit;
+  padding: 0.7vh 1.7vh;
+  margin: 0 0.5vh;
+}
+
+.nav-btn:hover {
+  cursor: pointer;
+  background-color: #CCC;
+  border-radius: 0.5vh;
+}
+
+.price {
+  font-size: calc(15px + 1vmin);
+  font-weight:500;
+  padding: 0;
+  margin: 0;
+}
+
+.shop-section {
+  font-size: 2.5vh;
+  font-weight: bold;
+}
+
+.ul-title {
+  color: #333;
+  font-weight: light;
+  padding-bottom: 1vh;
+  text-align: left;
+}
+
+#car-1 {
+  margin: -170px;
+}
+
+#main-btn-1 {
+  background-color: white;
+  color: #333;
+  opacity: 0.7;
+}
+
+#main-btn-2 {
+  background-color: #333;
   color: white;
+  opacity: 0.7;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  color: inherit;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
 }
