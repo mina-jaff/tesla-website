@@ -150,6 +150,10 @@
   font-weight: 500;
 }
 
+.model-y {
+  margin: -170px;
+}
+
 .nav-btn {
   background-color: inherit;
   border: none;
@@ -181,10 +185,6 @@
   font-weight: light;
   padding-bottom: 1vh;
   text-align: left;
-}
-
-#car-1 {
-  margin: -170px;
 }
 
 #main-btn-1 {
