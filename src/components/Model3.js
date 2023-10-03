@@ -24,7 +24,7 @@ function Model3() {
       }, []); 
 
     return (
-        <Order data={data} modelName={'Model 3'} image={images[0]}/>
+        <Order data={data} modelName={'Model 3'} images={images}/>
     );
 };
 

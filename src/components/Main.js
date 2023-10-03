@@ -24,7 +24,9 @@ function Main() {
     const handleScroll = () => {
         // Calculate the scroll position (percentage)
         const scrollY = window.scrollY;
+        // visible portion
         const windowHeight = window.innerHeight;
+        // total
         const totalHeight = document.body.clientHeight;
         const scrollPercentage = scrollY / (totalHeight - windowHeight);
 

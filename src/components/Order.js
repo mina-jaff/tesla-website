@@ -4,9 +4,11 @@ import Paint from './Paint';
 import logo from '../logo.svg';
 
 function Order(props) {
-    const { image, modelName, data } = props;
+    const { images, modelName, data } = props;
     const [selectedButton, setSelectedButton] = useState('savings');
     const [filterButton, setFilterButton] = useState('standard');
+    const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
     const left = '<';
     const right = '>';
 
@@ -18,6 +20,14 @@ function Order(props) {
     const handleFilterButtonClick = (version) => {
         setFilterButton(version);
     }
+
+    const handleImageClick = (direction) => {
+        if (direction === 'left') {
+            setCurrentImgIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+        } else {
+            setCurrentImgIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+        }
+    };
 
     const renderDriveTrainButtons = (driveTrainType) => {
         const filteredModels = Object.values(data).filter(
@@ -59,10 +69,10 @@ function Order(props) {
                 </div>
                 <div className="order-main">
                     <div className="order-left">
-                        <img className="car-perspective" src={image} />
+                        <img className="car-perspective" src={images[currentImgIndex]} />
                         <div className="btn-row">
-                            <button className="inc-btn">{left}</button>
-                            <button className="inc-btn">{right}</button>
+                            <button className="inc-btn" onClick={() => handleImageClick('left')}>{left}</button>
+                            <button className="inc-btn" onClick={() => handleImageClick('right')}>{right}</button>
                         </div>
                     </div>
                     <div className="order-right">
