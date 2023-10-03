@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import AppHeader from './AppHeader';
+import model3 from '../assets/model3.jpg';
 
 function Main() {
-    // State to track the currently visible car model
-    const [currentCarModel, setCurrentCarModel] = useState(0);
+    const [models, setModels] = useState([]);
 
-    const triggerPositions = [0, 0.3, 0.6, 0.9];
+    useEffect(() => {
+        fetch('http://localhost:3001/car-models')
+            .then(response => response.json())
+            .then(data => {
+                let copy = [...data];
+                copy.push({ name: 'Solar Panels', link: 'Schedule a Virtual Consultation', image_url: "https://digitalassets.tesla.com/tesla-contents/image/upload/h_1800,w_2880,c_fit,f_auto,q_auto:best/425_HP_SolarPanels_D" });
+    
+                setModels(copy);
+            })
+            .catch(error => console.error('Error fetching car models', error));
+    }, []);
 
-    // Scroll event handler
+    const [currentModel, setCurrentModel] = useState(0);
+    const triggerPositions = [0, 0.2, 0.4, 0.6, 0.8];
+
     const handleScroll = () => {
         // Calculate the scroll position (percentage)
         const scrollY = window.scrollY;
@@ -14,7 +28,6 @@ function Main() {
         const totalHeight = document.body.clientHeight;
         const scrollPercentage = scrollY / (totalHeight - windowHeight);
 
-        // Determine the currently visible car model
         let newCurrentModel = 0;
         for (let i = 1; i < triggerPositions.length; i++) {
             if (scrollPercentage >= triggerPositions[i]) {
@@ -25,12 +38,11 @@ function Main() {
         }
 
         // Update the current car model if it has changed
-        if (newCurrentModel !== currentCarModel) {
-            setCurrentCarModel(newCurrentModel);
+        if (newCurrentModel !== currentModel) {
+            setCurrentModel(newCurrentModel);
         }
     };
 
-    // Attach scroll event listener when the component mounts
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
 
@@ -38,44 +50,40 @@ function Main() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [currentCarModel]);
-
-    const carModels = [
-        { id: 'model-y', name: 'Model Y', price: 'From $39,390*', tax: true, est: "$50,490", imageUrl: "https://digitalassets.tesla.com/tesla-contents/image/upload/h_2400,w_2880,c_fit,f_auto,q_auto:best/Homepage-Model-Y-Global-Desktop"},
-        { name: 'Model S', price: 'From $71,090*', tax: true, est: "$74,990", imageUrl: "https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Model-S-Desktop-LHD-6.22.jpg"},
-        { name: 'Model X', price: 'From $68,590*', tax: true, est: "$79,990", imageUrl: "https://digitalassets.tesla.com/tesla-contents/image/upload/h_1800,w_2880,c_fit,f_auto,q_auto:best/Homepage-Model-X-Desktop-LHD"},
-        { name: 'Solar Panels', link: 'Schedule a Virtual Consultation', tax: false, est: false, imageUrl: "https://digitalassets.tesla.com/tesla-contents/image/upload/h_1800,w_2880,c_fit,f_auto,q_auto:best/425_HP_SolarPanels_D"},
-    ];
+    }, [currentModel]);
 
     return (
+        <>
+        <AppHeader />
         <div className="main">
-            {carModels.map((model, index) => (
+            {models?.map((model, index) => (
                 <img
                     key={index}
-                    className={`car-img ${currentCarModel === index ? 'visible' : 'hidden'} ${model.id === 'model-y' ? 'model-y' : ''}`}
-                    src={model.imageUrl}
+                    className={`car-img ${currentModel === index ? 'visible' : 'hidden'} ${model.id === 'model-y' ? 'model-y' : ''}`}
+                    src={model.image_url? model.image_url : model3}
+                    alt={model.name}
                 />
             ))}
-
             <div className="main-content">
-                {/* Render the content based on the currentCarModel state */}
                 <div className="main-top">
-                    <h1 className="model">{carModels[currentCarModel].name}</h1>
-                    {carModels[currentCarModel].price ? <p className="price">{carModels[currentCarModel].price}</p> : <a href="">{carModels[currentCarModel].link}</a>}
-                    <p className="est">{carModels[currentCarModel].tax ? 'After Federal Tax Credit & Est. Gas Savings' : ''}</p>
+                    <h1 className="model">{models[currentModel]?.name}</h1>
+                    {models[currentModel]?.wheels ? <p className="price">{`From $${models[currentModel]?.base_savings.toLocaleString()}*`}</p> : <a href="">{models[currentModel]?.link}</a>}
+                    <p className="est">{models[currentModel]?.wheels ? 'After Federal Tax Credit & Est. Gas Savings' : ''}</p>
                 </div>
                 <div className="main-bottom">
                     <div className="main-btns">
+                    <Link to={`/${models[currentModel]?.model_name}`}>
                         <button className="main-btn" id="main-btn-1">Order Now</button>
+                    </Link>
                         <button className="main-btn" id="main-btn-2">
-                            {carModels[currentCarModel].tax ? "Demo Drive" : "Learn More"}
+                            {models[currentModel]?.wheels ? "Demo Drive" : "Learn More"}
                         </button>
                     </div>
                     <div className="bottom-text">
-                        {carModels[currentCarModel].est ? 
+                        {models[currentModel]?.wheels ? 
                             <div>
                                 <p className="est">
-                                    {`*Price before savings is ${carModels[currentCarModel].est}, excluding taxes and fees. Subject to change.`}
+                                    {`*Price before savings is $${models[currentModel]?.base_price.toLocaleString()}, excluding taxes and fees. Subject to change.`}
                                 </p> 
                                 <a href="" className="est">
                                     Learn about est. gas savings.
@@ -86,6 +94,7 @@ function Main() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

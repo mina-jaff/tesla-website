@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from '../logo.svg';
 import Modal from './Modal';
 
-function AppHeader(props) {
-    const {logo} = props;
-
+function AppHeader() {
     const [openModal, setOpenModal] = useState(false);
     const [index, setIndex] = useState(0);
 
@@ -13,9 +12,6 @@ function AppHeader(props) {
         setIndex(ind);
     }
 
-    // perhaps closeModal function if not hover on modal
-
-    console.log(openModal);
     return (
         <div className="App-header">
             <div className="banner">
